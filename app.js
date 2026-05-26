@@ -1,14 +1,32 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+ 
+const http = require('http');
+const socketio = require('socket.io');
+const server = http.createServer(app);
+const io = socketio(server);
+
 const path = require('path');
 const methodOverride = require('method-override');
 const ejsMate = require('ejs-mate');
 const ExpressError = require('./utils/ExpressError.js');
-const listings = require('./routes/listing');
-const reviews = require('./routes/review');
+const listingRouter = require('./routes/listing');
+const reviewRouter = require('./routes/review');
+const userRouter = require('./routes/user');
 const session = require('express-session');
+const MongoStore = require('connect-mongo').default;
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user');
+
+const dbUrl = process.env.ATLASDB_URL;
+
 
 app.engine('ejs', ejsMate);
 app.use(methodOverride('_method')); 
@@ -17,8 +35,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//create a session store in MongoDB using connect-mongo 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret: 'thisshouldbeabettersecret!'
+    },
+    touchAfter: 24 * 60 * 60 // time period in seconds
+});
 
 const sessionOptions = {
+    store,
     secret: 'thisshouldbeabettersecret!',
     resave: false,
     saveUninitialized: true,
@@ -33,7 +60,7 @@ const sessionOptions = {
 //connect to mongodb
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/wanderland');
+    await mongoose.connect(dbUrl);
     
 }
 main().then(()=>{
@@ -42,24 +69,43 @@ main().then(()=>{
     console.log("Error connecting to MongoDB:", err);
 });
 
-app.get('/',(req,res)=>{
-    res.send("Hello World");
+store.on("error", function(e){
+    console.log("Error in mongo session store", e);
 });
 
 //use session and flash middleware
 app.use(session(sessionOptions));
 app.use(flash());
 
+//use passport middleware
+app.use(passport.initialize());//initialize passport
+app.use(passport.session());//use passport session
+passport.use(new LocalStrategy(User.authenticate()));//use local strategy for authentication
+passport.serializeUser(User.serializeUser());//serialize user
+passport.deserializeUser(User.deserializeUser());//deserialize user
+
 app.use((req, res, next) => {
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
+    res.locals.currentUser = req.user;
     next();
 }); 
 
+// //route to create a demo user for testing purposes
+// app.get("/demouser", async (req, res) => {
+//     let fakeUser = new User({ 
+//          username: 'demouser', // Assuming you have a username field in your User model
+//          email:'student@gmail.com'
+//         });
+
+//       let registeredUser = await User.register(fakeUser, 'helloworld');
+//       res.send(registeredUser);
+//     });
 
 //usedd to access routes in listing.js and review.js
-app.use('/listings', listings);
-app.use('/listings/:id/reviews', reviews);
+app.use('/listings', listingRouter);
+app.use('/listings/:id/reviews', reviewRouter);
+app.use('/', userRouter);
 
 
 //constom error handling middleware
@@ -74,6 +120,6 @@ app.use((err, req, res, next) => {
 });
 
 
-app.listen(8080,()=>{
+server.listen(8080,()=>{
     console.log("Server is running on port 8080 : http://localhost:8080/listings");
 });

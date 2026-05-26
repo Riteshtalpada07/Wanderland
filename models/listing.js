@@ -22,25 +22,43 @@ const listingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    country: {
+        type: String,
+        required: true
+    },
 
     image: {
-        type: String,
-
-        default:
-        "https://images.pexels.com/photos/31817160/pexels-photo-31817160.jpeg",
-
-        set: (v) =>
-            v === ""
-            ? "https://images.pexels.com/photos/31817160/pexels-photo-31817160.jpeg"
-            : v
+        url: String,
+        filename: String,
     },
+   category: {
+    type: String,
+    enum: [
+        "Trending",
+        "Rooms",
+        "Mountains",
+        "Treehouses",
+        "Camping",
+        "Luxe",
+        "Farms",
+        "Pools",
+        "Beachfront"
+    ],
+    required: true,
+},
 
     reviews: [
         {
             type: schema.Types.ObjectId,
             ref: "Review"
         }
-    ]
+    ],
+
+    owner: {
+        type: schema.Types.ObjectId,
+        ref: "User"
+    }
+
 });
 
 listingSchema.post('findOneAndDelete', async (listing) => {

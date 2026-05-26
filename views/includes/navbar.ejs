@@ -1,14 +1,32 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-regular fa-house"></i></a>
+    <a class="navbar-brand" href="/listings"><i class="fa-regular fa-house fa-lg" style="color: rgb(255, 27, 27);"></i></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link"  href="#">Home</a>
-        <a class="nav-link" href="/listings">All listings</a>
-        <a class="nav-link" href="/listings/new">Add New</a>
+        <a class="nav-link" href="/listings">Explore</a>
+        
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Search" aria-label="Search"/>
+        <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass fa-lg"></i></button>
+      </form>
+      </div>
+
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link" href="/listings/new">Host Place</a>
+        <% if(!currentUser){ %>
+        <a class="btn btn-nav"  href="/Signup"><b>SignUp</b></a>
+        <a class="btn btn-nav" href="/login"><b>Login</b></a>
+       <% } %>
+        <% if(currentUser){ %>
+         <a class="btn btn-nav" href="/logout"><b>Logout</b></a>
+       <% } %>
+       
         
       </div>
     </div>

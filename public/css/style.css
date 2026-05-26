@@ -1,30 +1,44 @@
+html, body{
+    height: 100%;
+    margin: 0;
+}
+
 body{
-    width: 100%;
-    font-family: "Plus Jakarta Sans", sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-.cointaner{
+.container{
     flex: 1;
 }
 
 /* navbar */
 .navbar {
-    height: 5rem;
+    min-height: 60px;
     background-color: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+.navbar .navbar-nav .nav-link,
+.navbar .navbar-brand {
+    transition: color 0.3s ease !important;
+}
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-brand:hover {
+    color: #fe424d !important;
 }
 .fa-house{
     color: #fe424d;
     font-size: 2rem;
-
 }
 .nav-link{
     color:#222222 !important;
 }
 
 /* footer */
+footer{
+    width: 100%;
+}
 .f-info-links a{
     text-decoration: none;
     color: #222222;
@@ -41,16 +55,15 @@ body{
 .f-info-socials i{
    font-size: 1.2rem;
    margin-right:1rem;
-
 }
 .f-info{
-text-align: center;    
-display: flex;
-height: 8rem;
-background-color: #ebebeb; 
-align-items: space-evenly;
-flex-wrap: wrap;
-justify-content: center;
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 /* listings page cards*/
 .listing-card{
@@ -66,7 +79,6 @@ justify-content: center;
 }
 .card-body{
     padding: 0 !important;
-   
 }
 .card-text{
     font-size: 1.1rem !important;
@@ -77,13 +89,13 @@ justify-content: center;
     text-decoration: none;
 }
 .row{
-    padding: 0 2rem 0 2rem;
+    padding: 0 1.25rem 0 1.25rem;
 }
 
 /* review card */
-.reviews-row{
-    padding: 0 1rem 0 1rem;
-    margin: none !important;
+.reviews-row {
+    padding: 0 .75rem 0 .75rem;
+    margin: 0 !important;
 }
 .card-para{
     font-size: small !important;
@@ -99,27 +111,308 @@ justify-content: center;
 }
 
 .add-btn{
-   background-color: #fe424d !important; 
-   border: none !important;
+   background-color: #fe424d !important;
+    border: none !important;
 }
 
 /*edit page*/
 .edit-btn{
-   background-color: #fe424d !important; 
-   border: none !important;
+   background-color: #fe424d !important;
+    border: none !important;
 }
 
 /*show page*/
 .show-img{
     height: 30vh;
-    /* width: 50vh !important; */
 }
 .btns{
+    
     width: 100% !important;
     margin-bottom:2% !important;
-
 }
 .show-card{
     padding-left: 0;
     padding-right: 0;
+}
+a{
+    text-decoration: none !important;
+}
+#map{
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+}
+.btn-nav{
+    transition: all 0.5s ease !important;
+    padding: 8px 14px;
+    border-radius: 20px !important;
+}
+.btn-nav:hover{
+    background-color: rgba(227, 227, 227, 0.5) !important;
+    color: #fe424d !important;
+}
+.btn-search{
+    height: 42px !important;
+    width: 42px !important;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 50% !important;
+    background-color: #fe424d !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    flex-shrink: 0;
+}
+.search{
+    border-radius: 20px !important;
+    min-width: 140px;
+}
+.filters-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    width: 100%;
+    overflow: hidden;
+
+    margin-top: 1rem;
+    padding: 0 1rem;
+}
+
+/* Scrollable Filters */
+#filter{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    overflow-x: auto;
+    white-space: nowrap;
+
+    flex: 1;
+
+    scrollbar-width: none;
+}
+
+#filter::-webkit-scrollbar{
+    display: none;
+}
+
+/* Individual Filter */
+.filters{
+    flex: 0 0 auto;
+    text-align: center;
+}
+
+/* Filter Links */
+.filters a{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 6px 14px;
+    border-radius: 12px;
+
+    text-decoration: none;
+    color: #222;
+
+    transition: all 0.2s ease;
+}
+
+/* Hover Effect */
+.filters a:hover{
+    color: #d75555;
+    background-color: rgba(0,0,0,0.05);
+
+    transform: translateY(-2px);
+}
+
+/* Icons */
+.filters i{
+    font-size: 1.2rem;
+}
+
+/* Text */
+.filters p{
+    margin-top: 4px;
+    margin-bottom: 0;
+
+    font-size: 0.85rem;
+}
+
+/* Toggle Button */
+.toggle-btn{
+    border: 1px solid #ccc;
+    border-radius: 1rem;
+
+    padding: 0.6rem 1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+
+    flex-shrink: 0;
+}
+
+/* Remove extra spacing */
+.toggle-btn .form-check{
+    margin-bottom: 0;
+}
+
+/* GST Text */
+.tax-info{
+    font-size: 1rem;
+    display: none;
+    color: red;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px){
+
+    .filters-wrapper{
+        gap: 0.5rem;
+        padding: 0 0.5rem;
+    }
+
+    .toggle-btn{
+        padding: 0.5rem 0.7rem;
+        font-size: 0.85rem;
+    }
+
+    .filters a{
+        padding: 6px 10px;
+    }
+
+    .filters i{
+        font-size: 1rem;
+    }
+
+    .filters p{
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 768px){
+
+    .filters-wrapper{
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .toggle-btn{
+        width: fit-content;
+        margin: auto;
+    }
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+
+/* ── ≤ 991px: navbar search form stacked & full-width ── */
+@media (max-width: 991px) {
+    #navbarNavAltMarkup .navbar-nav {
+        width: 100%;
+    }
+    #navbarNavAltMarkup .navbar-nav form {
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    #navbarNavAltMarkup .navbar-nav form input {
+        width: 1px;
+        min-width: 0;
+        flex: 1 1 auto;
+    }
+    #navbarNavAltMarkup .navbar-nav form .btn-search {
+        flex-shrink: 0;
+    }
+    #navbarNavAltMarkup .navbar-nav.ms-auto:last-child {
+        margin-top: 0.5rem;
+    }
+}
+
+/* ── ≤ 768px: show page, reviews, forms ── */
+@media (max-width: 768px) {
+    /* Map height reduced on mobile */
+    #map {
+        height: 300px;
+    }
+
+    /* Error alert spans full content width */
+    .alert{
+        width: 100% !important;
+    }
+
+    /* Stack review cards vertically */
+    .reviews-row .card {
+        max-width: 100%;
+        flex: 0 0 100%;
+    }
+
+    /* Stack filter toggle below chips, level margins */
+    #filter {
+        justify-content: flex-start;
+    }
+
+    /* Reduce row side padding on small screens */
+    .row {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    /* Center filter chips with less outer gap */
+    .filters a {
+        padding: 4px 10px;
+    }
+}
+
+/* ── ≤ 576px: very small phones ── */
+@media (max-width: 576px) {
+    /* Map height further reduced */
+    #map {
+        height: 250px;
+    }
+
+    /* Show/index cards grid stays at 1 per row via Bootstrap row-cols-sm-1 */
+
+    /* Toggle button full-width */
+    .toggle-btn {
+        width: 100%;
+    }
+
+    /* Search input drops width so it doesn't overflow */
+    .search {
+        min-width: 80px;
+    }
+
+    /* Reduce filter chip gap */
+    #filter {
+        gap: 6px;
+    }
+
+    .filters a {
+        padding: 4px 8px;
+    }
+
+    /* Login/signup heading aligns centre on very small screens */
+    h1 {
+        text-align: center;
+    }
+
+    /* Stack buttons vertically giving side margins */
+    .btns .btn {
+        width: calc(50% - 0.5rem) !important;
+        margin-bottom: 0.5rem;
+    }
+
+    /* New listing form location/country row stacks */
+    .new-ejs .d-flex {
+        flex-direction: column;
+    }
+    .new-ejs .d-flex > div {
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-bottom: 1rem;
+    }
 }

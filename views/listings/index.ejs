@@ -1,20 +1,108 @@
 <% layout("/layouts/boilerplate") %>
-<body> 
-    <h3>All Listings</h3>
-<div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 ">
+<div class="filters-wrapper d-flex align-items-center justify-content-between">
+
+  <!-- Scrollable Filters -->
+  <div id="filter">
+
+    <div class="filters">
+      <a href="/listings/category/All">
+        <i class="fa-solid fa-border-all"></i>
+        <p>All</p>
+      </a>
+    </div>
+
+    <div class="filters">
+      <a href="/listings/category/Trending">
+        <i class="fa-solid fa-fire"></i>
+        <p>Trending</p>
+      </a>
+    </div>
+
+    <div class="filters">
+      <a href="/listings/category/Rooms">
+        <i class="fa-solid fa-bed"></i>
+        <p>Rooms</p>
+      </a>
+    </div>
+<div class="filters">
+      <a href="/listings/category/Mountains">
+      <i class="fa-solid fa-mountain-sun"></i>
+      <p>Mountains</p>
+      </a>
+    </div>
+    <div class="filters">
+      <a href="/listings/category/Treehouses">
+      <i class="fa-solid fa-tree"></i>
+      <p>Treehouses</p>
+      </a>
+    </div>
+    <div class="filters">
+      <a href="/listings/category/Camping">
+      <i class="fa-solid fa-tent"></i>
+      <p>Camping</p>
+      </a>
+    </div>
+    <div class="filters">
+     <a href="/listings/category/Luxe">
+      <i class="fa-solid fa-gem"></i>
+      <p>Luxe</p>
+      </a>
+    </div>
+    <div class="filters">
+      <a href="/listings/category/Farms">
+      <i class="fa-solid fa-tractor"></i>
+      <p>Farms</p>
+      </a>
+    </div>
+    <div class="filters">
+      <a href="/listings/category/Pools">
+      <i class="fa-solid fa-person-swimming"></i>
+      <p>Pools</p>
+      </a>
+    </div>
+    <div class="filters">
+     <a href="/listings/category/Beachfront">
+      <i class="fa-solid fa-umbrella-beach"></i>
+      <p>Beachfront</p>
+      </a>
+      </div>
+
+  </div>
+
+  <!-- Fixed Toggle Button -->
+  <div class="toggle-btn ms-3">
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="switchCheckDefault"
+      >
+
+      <label class="form-check-label" for="switchCheckDefault">
+        Display Taxes
+      </label>
+    </div>
+  </div>
+
+</div>
+<div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 mt-3 ">
 <% for(let listing of all){ %>  
     <a href="/listings/<%= listing._id %>" class="listing-links">
     <div class="card col listing-card" >
-      <img src="<%= listing.image %>" class="card-img-top" alt="listing-img">
+      <img src="<%= listing.image.url %>" class="card-img-top" alt="listing-img">
       <div class="card-img-overlay"><i class="fa-regular fa-heart"></i></div>
     <div class="card-body">
       <p class="card-text">
         <b><%= listing.title %> <br></b>
-        ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : 'N/A' %> / night <br>
+        ₹<%= listing.price ? listing.price.toLocaleString("en-IN") : 'N/A' %> / night 
+        <i class="tax-info"> &nbsp;+18% GST</i>
+        <br>
       </p>
     </div>
     </div>
     </a>
 <% } %>
 </div>
-</body> 
+
+
