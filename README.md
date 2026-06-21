@@ -4,7 +4,7 @@ A web application for creating, viewing, and managing property/real estate listi
 
 ## Live Demo
 
-🌐 **Try Wanderland:** [Click Here](https://wanderland-kba9.onrender.com)
+🌐 **Try Wanderland:** [Click Here](https://wanderland-kba9.onrender.com/listings)
 
 ## Description
 
